@@ -23,7 +23,8 @@ const quotes = [
     quote:"I'm not good at the advice. Can I interest you in a sarcastic comment?",
     source: "Chandler (Matthew Perry)",
     citation: "Friends",
-    year: 2002
+    year: 2002,
+    shirt: 'Blue'
   },
   {
     quote:"I never forget a face - but in your case, I'll be glad to make an exception",
@@ -58,6 +59,10 @@ function printQuote() {
     if (randomQuote.year) {
       html += `
       <span class="year">${randomQuote.year}</span>`
+    };
+    if (randomQuote.shirt) {
+      html += `
+      <span class="shirt">${randomQuote.shirt}</span>`
     };
       html += `</p>`;
       return document.getElementById('quote-box').innerHTML = html;

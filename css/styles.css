@@ -115,6 +115,12 @@ h1 {
   font-style: normal;
 }
 
+.shirt:before {
+  content: ", ";
+  font-style: normal;
+}
+
+
 @media (min-width: 768px) {
   body {
     padding: 25px;
