@@ -24,7 +24,7 @@ const quotes = [
     source: "Chandler (Matthew Perry)",
     citation: "Friends",
     year: 2002,
-    shirt: 'Blue'
+    shirt: 'Blue Shirt'
   },
   {
     quote:"I never forget a face - but in your case, I'll be glad to make an exception",
