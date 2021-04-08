@@ -3,10 +3,6 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
-
 /*** 
  * `quotes` array 
 ***/
@@ -36,63 +32,64 @@ const quotes = [
   }
 ];
 
-/***
- * `getRandomQuote` function
-***/
-
-let quoteHtml = '';
+//  I have created the getRandomQuote() function to get the object from the array.
+// The variable randomNum is resposible for creating a random number between 1 and the total sum of quotes.
+//  unstructuredQuote then uses that random number to generate a random quote. 
+//  The function then returns a quote.
 function getRandomQuote() {
-  let quoteNumber = Math.floor(Math.random() * quotes.length );
-return quoteNumber;
-  };
-
+  let randomNum = Math.floor(Math.random() * quotes.length) ;
+  let unstructuredQuote = quotes[randomNum];
+  return unstructuredQuote;
+};
  
-/***
- * `printQuote` function
-***/
+// The printQuote() function stores getRandomQuote() in a variable. 
+// the html variable is used to cocatinate the strings depending on whether the quotes have a citation or year
+// This information is then used to construct the final output
 function printQuote() {
-
-  let quoteInfo = quotes[getRandomQuote()];
+  let randomQuote = getRandomQuote();
+  let html = `
+    <p class="quote">${randomQuote.quote}</p>
+    <p class="source">${randomQuote.source}`
   
-let quoteHtml = '';
+    if (randomQuote.citation) {
+      html += `
+      <span class="citation">${randomQuote.citation}</span>`
+    };
+    if (randomQuote.year) {
+      html += `
+      <span class="year">${randomQuote.year}</span>`
+    };
+      html += `</p>`;
+      return document.getElementById('quote-box').innerHTML = html;
+};
 
-  if (!quoteInfo.citation  && !quoteInfo.year) {
-    quoteHtml += `
-      <p class="quote">${quoteInfo.quote}</p>
-      <p class ="source">${quoteInfo.source}</p>
-    `;
-  } else if (quoteInfo.year && !quoteInfo.citation ){
-    quoteHtml += `
-    <p class="quote">${quoteInfo.quote}</p>
-    <p class="source">${quoteInfo.source} 
-      <span class="year">${quoteInfo.year}</span>
-    </p>
-    `
-  } else if (quoteInfo.citation && !quoteInfo.year){
-    quoteHtml += `
-    <p class="quote">${quoteInfo.quote}</p>
-    <p class="source">${quoteInfo.source} 
-      <span class="citation">${quoteInfo.citation}</span>
-    </p>
-    `
-  } else {
-    quoteHtml += `
-    <p class="quote">${quoteInfo.quote}</p>
-    <p class="source">${quoteInfo.source} 
-      <span class="citation">${quoteInfo.citation}</span>
-      <span class="year">${quoteInfo.year}</span>
-    </p>
-    `
-  }
-  return document.getElementById('quote-box').innerHTML = `${quoteHtml}`; 
- }
-  ;
+//  As I wanted truly random colors rather than pre-determined I created 3 variables: r,g,b.
+//  To implement this in my script I did research and came across the article below which helped:
+// https://www.kirupa.com/html5/setting_css_styles_using_javascript.htm
+function bgColor() {
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+  let getBody= document.querySelector('body');
+  let randomColor =  getBody.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  return randomColor;
+}
 
-  printQuote();
+// I have then called the functions 
+printQuote();
+bgColor();
 
+//I have included an interval which refreshes the screen every 10 seconds
+//This was researched from Youtube videos and Stack Overflow: 
+//https://stackoverflow.com/questions/32913226/auto-refresh-page-every-30-seconds
+setInterval(function(){
+  window.location.reload();
+}, 10000);
+
+//I want the background color to change when #load-quote button is clicked so have added an additional event listener.
+document.getElementById('load-quote').addEventListener("click", bgColor, false);
 /***
  * click event listener for the print quote button
  * DO NOT CHANGE THE CODE BELOW!!
 ***/
-
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
